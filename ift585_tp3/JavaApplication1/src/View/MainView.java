@@ -2,6 +2,7 @@ package View;
 
 import DatabaseLayer.DBConnect;
 import Controller.TCPServer;
+import DatabaseLayer.DBQueries;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -48,7 +49,6 @@ public class MainView extends javax.swing.JFrame {
         serverMsgTextArea = new javax.swing.JTextArea();
         windowTitle = new javax.swing.JLabel();
         memberPanel = new javax.swing.JPanel();
-        createUserBtn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,13 +77,6 @@ public class MainView extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        createUserBtn.setText("Create User");
-        createUserBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createUserBtnActionPerformed(evt);
-            }
-        });
-
         jButton1.setText("Connect to DB");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,8 +92,7 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(windowTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(memberPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(createUserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(memberPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(254, 254, 254)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -121,7 +113,6 @@ public class MainView extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(startServerBtn)
-                    .addComponent(createUserBtn)
                     .addComponent(jButton1))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -138,19 +129,17 @@ public class MainView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_startServerBtnActionPerformed
 
-    private void createUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserBtnActionPerformed
-        CreateUserView cuv = new CreateUserView();
-        cuv.setVisible(true);
-    }//GEN-LAST:event_createUserBtnActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             String admin = "admin";
             String password = "admin";
             DBConnect dbConnect = new DBConnect();
-            dbConnect.createUser(admin, password);
+            DBQueries dbQueries = new DBQueries(dbConnect.getConnection());
+            dbQueries.retrieveUser("admin");
+            
+            dbConnect.getConnection().close();
         } catch (SQLException ex) {
-            //Not working
+            displayMessage(ex.toString());
             displayMessage("User ID already in use");
         }
         
@@ -190,7 +179,6 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton createUserBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel memberPanel;

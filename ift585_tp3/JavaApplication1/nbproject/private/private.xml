@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Defalt/Desktop/ift585_tp3/JavaApplication1/src/View/MainView.java</file>
-            <file>file:/C:/Users/Defalt/Desktop/ift585_tp3/JavaApplication1/src/Controller/DBConnect.java</file>
+            <file>file:/D:/My%20Data/Downloads/GitBash/ift585_tp3/JavaApplication1/src/DatabaseLayer/DBConnect.java</file>
+            <file>file:/D:/My%20Data/Downloads/GitBash/ift585_tp3/JavaApplication1/src/View/MainView.java</file>
+            <file>file:/D:/My%20Data/Downloads/GitBash/ift585_tp3/JavaApplication1/src/Main/User.java</file>
+            <file>file:/D:/My%20Data/Downloads/GitBash/ift585_tp3/JavaApplication1/src/DatabaseLayer/DBQueries.java</file>
+            <file>file:/D:/My%20Data/Downloads/GitBash/ift585_tp3/JavaApplication1/src/Main/Main.java</file>
+            <file>file:/D:/My%20Data/Downloads/GitBash/ift585_tp3/JavaApplication1/src/DatabaseLayer/DBQueries_interface.java</file>
         </group>
     </open-files>
 </project-private>
