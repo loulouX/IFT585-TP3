@@ -1,1 +1,1 @@
-﻿INSERT INTO public.files VALUES (nextval('file_id_seq'), 'shared_files\test.txt');
+﻿INSERT INTO public.groups VALUES (nextval('group_id_seq'), 'Fancy Unicorns', 'US0000');
