@@ -11,8 +11,12 @@ public class User {
     String password;
     boolean isOnline;
     
-    public User(){
-        
+    public User(){  
+    }
+    
+    public User(String u, String p){
+        this.username = u;
+        this.password = p;
     }
     
     public String getUsername(){

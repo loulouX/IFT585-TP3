@@ -3,8 +3,10 @@ package View;
 import DatabaseLayer.DBConnect;
 import Controller.TCPServer;
 import DatabaseLayer.DBQueries;
+import Main.User;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -131,16 +133,29 @@ public class MainView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            String admin = "admin";
-            String password = "admin";
             DBConnect dbConnect = new DBConnect();
             DBQueries dbQueries = new DBQueries(dbConnect.getConnection());
-            dbQueries.retrieveUser("admin");
+            
+            // Test_queries
+            List<User> userList = dbQueries.retrieveAllOnlineUsers();
+            dbQueries.setUserOnline("admin");
+            //dbQueries.setUserOffline("admin");
+            // /Test_queries
             
             dbConnect.getConnection().close();
+            
+            String userListS = "";
+            userListS = userList.stream().map((user) -> user.getUsername() + "\n").reduce(userListS, String::concat);
+            
+            displayMessage(userListS);  
+            /*
+            userList.stream().forEach((user) -> {
+                System.out.println(user.getUsername());
+            });
+            */
+            
         } catch (SQLException ex) {
             displayMessage(ex.toString());
-            displayMessage("User ID already in use");
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed

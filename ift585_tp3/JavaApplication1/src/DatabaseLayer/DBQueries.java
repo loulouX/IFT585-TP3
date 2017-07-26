@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class DBQueries implements DBQueries_interface{
         this.conn = conn;
     }
     
+    //
     @Override
     public void createUser(String username, String password) throws SQLException{
         // NEED TO REPLACE WITH STRINGBUILDER, but for now, who cares...
@@ -66,18 +68,69 @@ public class DBQueries implements DBQueries_interface{
     
     @Override
     public List<User> retrieveAllUsers() throws SQLException {
-        User user = new User();
-        
+        List<User> userList = new ArrayList();
+
         String pp = "SELECT username FROM public.users;";
         
         PreparedStatement ps = conn.prepareStatement(pp);
         ResultSet rs = ps.executeQuery();
         while(rs.next()){
+            User user = new User();
             user.setUsername(rs.getString("username"));
-            user.setPassword(rs.getString("password"));  
+            userList.add(user);
         }
-        System.out.println(user.getUsername());
         
-        return null;
+        return userList;
     }
+
+    @Override
+    public List<User> retrieveAllOnlineUsers() throws SQLException {
+        List<User> userList = new ArrayList();
+
+        String pp = "SELECT username FROM public.users WHERE isOnline = TRUE;";
+        
+        PreparedStatement ps = conn.prepareStatement(pp);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            User user = new User();
+            user.setUsername(rs.getString("username"));
+            userList.add(user);
+        }
+        
+        return userList;
+    }
+
+    @Override
+    public void setUserOnline(String username) throws SQLException {
+        String pp = "UPDATE public.users SET isOnline = TRUE WHERE username = '";
+        pp += username;
+        pp += "';";
+        
+        try {
+            PreparedStatement ps = conn.prepareStatement(pp);
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setUserOffline(String username) throws SQLException {
+        String pp = "UPDATE public.users SET isOnline = FALSE WHERE username = '";
+        pp += username;
+        pp += "';";
+        
+        try {
+            PreparedStatement ps = conn.prepareStatement(pp);
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
 }

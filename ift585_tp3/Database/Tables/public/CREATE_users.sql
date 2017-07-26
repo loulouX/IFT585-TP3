@@ -1,4 +1,4 @@
-﻿-- DROP TABLE usertable
+﻿-- DROP TABLE users
 
 CREATE TABLE users (
 	id		CHAR(6) CONSTRAINT user_pk PRIMARY KEY,
