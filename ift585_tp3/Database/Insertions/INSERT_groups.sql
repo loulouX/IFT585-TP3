@@ -1,0 +1,1 @@
+﻿INSERT INTO public.files VALUES (nextval('file_id_seq'), 'shared_files\test.txt');
